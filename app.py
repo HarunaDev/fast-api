@@ -17,6 +17,13 @@ class Task(BaseModel):
     description: Optional[str] = None
     completed: bool = False
 
+# create route to handle post 
+@app.post("/tasks/", response_model=Task)
+def createTask(task: Task):
+    task.id = uuid4()
+    tasks.append(task)
+    return task
+
 # create route and return data to user
 @app.get("/")
 def read():
