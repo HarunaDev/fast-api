@@ -36,8 +36,18 @@ def readTask(task_id: UUID):
         if task.id == task_id:
             return task
         
-    return HTTPException(status_code=404, detail="Task not found")
+    raise HTTPException(status_code=404, detail="Task not found")
 
+# create route to update task
+@app.put("/tasks/{task_id}", response_model=Task)
+def updateTask(task_id: UUID, task_update: Task):
+    for idx, task in enumerate(tasks):
+        if task.id == task_id:
+            # update task and exclude fields that data was not passed for update
+            updated_task = task.copy(update=task_update.dict(exclude_unset=True))
+            tasks[idx] = updated_task
+
+    raise HTTPException(status_code=404, detail="Task not found")
 if __name__ == "__main__":
     import uvicorn
 
