@@ -26,7 +26,7 @@ def createTask(task: Task):
 
 # create route and return data to user
 @app.get("/tasks/", response_model=List[Task])
-def readTask():
+def readTasks():
     return tasks
 
 if __name__ == "__main__":
