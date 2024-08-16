@@ -48,6 +48,16 @@ def updateTask(task_id: UUID, task_update: Task):
             tasks[idx] = updated_task
 
     raise HTTPException(status_code=404, detail="Task not found")
+
+# create route to delete task
+@app.delete("/tasks/{task_id}", response_model=Task)
+def deleteTask(task_id: UUID):
+    for idx, task in enumerate(tasks):
+        if task.id == task_id:
+            return tasks.pop(task)
+        
+    raise HTTPException(status_code=404, detail="Task not found")
+
 if __name__ == "__main__":
     import uvicorn
 
