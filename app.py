@@ -25,9 +25,9 @@ def createTask(task: Task):
     return task
 
 # create route and return data to user
-@app.get("/")
-def read():
-    return {"hello": "world"}
+@app.get("/tasks/", response_model=List[Task])
+def readTask():
+    return tasks
 
 if __name__ == "__main__":
     import uvicorn
